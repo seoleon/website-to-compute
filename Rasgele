@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KralChat | YazılımCı Kralı Özel</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --danger: #f72585;
+        }
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #e9ecef;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Giriş/Kayıt Sayfası */
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .auth-container h1 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: #eee;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .auth-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        .auth-form {
+            display: none;
+        }
+        .auth-form.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: var(--secondary);
+        }
+        /* Chat Sayfası */
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 90vh;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-container {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        #user-search {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        .message {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 1rem;
+            line-height: 1.4;
+        }
+        .received {
+            background: #f1f1f1;
+            align-self: flex-start;
+            border-top-left-radius: 0.25rem;
+        }
+        .sent {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 0.25rem;
+        }
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+            display: block;
+            text-align: right;
+        }
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+        #message-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0 1.5rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+        .user-list {
+            display: none;
+            position: absolute;
+            background: white;
+            width: calc(100% - 2rem);
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            z-index: 10;
+        }
+        .user-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .user-item:hover {
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Giriş/Kayıt Sayfası -->
+    <div class="auth-container" id="auth-container">
+        <h1>KralChat'e Hoşgeldiniz</h1>
+        <div class="auth-tabs">
+            <div class="auth-tab active" onclick="switchTab('login')">Giriş Yap</div>
+            <div class="auth-tab" onclick="switchTab('register')">Kayıt Ol</div>
+        </div>
+        
+        <!-- Giriş Formu -->
+        <div class="auth-form active" id="login-form">
+            <div class="form-group">
+                <label for="login-username">Kullanıcı Adı</label>
+                <input type="text" id="login-username" placeholder="Kullanıcı adınız">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Şifre</label>
+                <input type="password" id="login-password" placeholder="Şifreniz">
+            </div>
+            <button class="btn" onclick="login()">Giriş Yap</button>
+        </div>
+        
+        <!-- Kayıt Formu -->
+        <div class="auth-form" id="register-form">
+            <div class="form-group">
+                <label for="register-username">Kullanıcı Adı</label>
+                <input type="text" id="register-username" placeholder="Kullanıcı adı seçin">
+            </div>
+            <div class="form-group">
+                <label for="register-email">E-posta</label>
+                <input type="email" id="register-email" placeholder="E-posta adresiniz">
+            </div>
+            <div class="form-group">
+                <label for="register-password">Şifre</label>
+                <input type="password" id="register-password" placeholder="Şifre oluşturun">
+            </div>
+            <button class="btn" onclick="register()">Kayıt Ol</button>
+        </div>
+    </div>
+    
+    <!-- Chat Sayfası -->
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <div>Hoşgeldin, <span id="current-user"></span>!</div>
+            <div style="cursor: pointer;" onclick="logout()">Çıkış Yap</div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" id="user-search" placeholder="Kullanıcı ara..." oninput="searchUsers()">
+            <div class="user-list" id="user-list"></div>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <!-- Mesajlar buraya eklenecek -->
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Mesaj yaz...">
+            <button id="send-btn" onclick="sendMessage()">Gönder</button>
+        </div>
+    </div>
+
+    <script>
+        // Veritabanı (JSON tabanlı)
+        let db = {
+            users: JSON.parse(localStorage.getItem('users')) || [
+                { id: 1, username: "yazilimci_krali", email: "kral@example.com", password: "123456" },
+                { id: 2, username: "misafir", email: "misafir@example.com", password: "123456" }
+            ],
+            messages: JSON.parse(localStorage.getItem('messages')) || [
+                { id: 1, senderId: 1, receiverId: 2, text: "Merhaba misafir!", timestamp: new Date().getTime() },
+                { id: 2, senderId: 2, receiverId: 1, text: "Selam Kral! Nasılsın?", timestamp: new Date().getTime() }
+            ]
+        };
+
+        // Oturum bilgisi
+        let currentUser = null;
+        let currentReceiver = null;
+
+        // DOM Yüklendiğinde
+        document.addEventListener('DOMContentLoaded', () => {
+            // Eğer kullanıcı giriş yapmışsa chat sayfasını göster
+            const loggedInUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (loggedInUser) {
+                currentUser = loggedInUser;
+                showChatPage();
+                loadMessages();
+            }
+        });
+
+        // Tab değiştirme
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+        }
+
+        // Giriş yap
+        function login() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            const user = db.users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                showChatPage();
+                loadMessages();
+            } else {
+                alert('Kullanıcı adı veya şifre hatalı!');
+            }
+        }
+
+        // Kayıt ol
+        function register() {
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            
+            if (!username || !email || !password) {
+                alert('Lütfen tüm alanları doldurun!');
+                return;
+            }
+            
+            if (db.users.some(u => u.username === username)) {
+                alert('Bu kullanıcı adı zaten alınmış!');
+                return;
+            }
+            
+            const newUser = {
+                id: db.users.length + 1,
+                username,
+                email,
+                password
+            };
+            
+            db.users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(db.users));
+            
+            alert('Kayıt başarılı! Giriş yapabilirsiniz.');
+            switchTab('login');
+            
+            // Formları temizle
+            document.getElementById('register-username').value = '';
+            document.getElementById('register-email').value = '';
+            document.getElementById('register-password').value = '';
+        }
+
+        // Chat sayfasını göster
+        function showChatPage() {
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('chat-container').style.display = 'flex';
+            document.getElementById('current-user').textContent = currentUser.username;
+        }
+
+        // Kullanıcı ara
+        function searchUsers() {
+            const searchTerm = document.getElementById('user-search').value.toLowerCase();
+            const userList = document.getElementById('user-list');
+            
+            if (!searchTerm) {
+                userList.style.display = 'none';
+                return;
+            }
+            
+            const filteredUsers = db.users.filter(user => 
+                user.username.toLowerCase().includes(searchTerm) && 
+                user.id !== currentUser.id
+            );
+            
+            userList.innerHTML = '';
+            
+            if (filteredUsers.length > 0) {
+                filteredUsers.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.textContent = user.username;
+                    userItem.onclick = () => selectUser(user);
+                    userList.appendChild(userItem);
+                });
+                userList.style.display = 'block';
+            } else {
+                userList.style.display = 'none';
+            }
+        }
+
+        // Kullanıcı seç
+        function selectUser(user) {
+            currentReceiver = user;
+            document.getElementById('user-search').value = user.username;
+            document.getElementById('user-list').style.display = 'none';
+            loadMessages();
+        }
+
+        // Mesajları yükle
+        function loadMessages() {
+            if (!currentReceiver) return;
+            
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+            
+            const messages = db.messages.filter(msg => 
+                (msg.senderId === currentUser.id && msg.receiverId === currentReceiver.id) ||
+                (msg.senderId === currentReceiver.id && msg.receiverId === currentUser.id)
+            ).sort((a, b) => a.timestamp - b.timestamp);
+            
+            messages.forEach(msg => {
+                const isSent = msg.senderId === currentUser.id;
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
+                
+                const time = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                messageDiv.innerHTML = `
+                    ${msg.text}
+                    <span class="message-time">${time}</span>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+            });
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Mesaj gönder
+        function sendMessage() {
+            if (!currentReceiver) {
+                alert('Lütfen bir kullanıcı seçin!');
+                return;
+            }
+            
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            const newMessage = {
+                id: db.messages.length + 1,
+                senderId: currentUser.id,
+                receiverId: currentReceiver.id,
+                text,
+                timestamp: new Date().getTime()
+            };
+            
+            db.messages.push(newMessage);
+            localStorage.setItem('messages', JSON.stringify(db.messages));
+            
+            input.value = '';
+            loadMessages();
+        }
+
+        // Çıkış yap
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            currentReceiver = null;
+            
+            document.getElementById('chat-container').style.display = 'none';
+            document.getElementById('auth-container').style.display = 'block';
+            
+            // Formları temizle
+            document.getElementById('login-username').value = '';
+            document.getElementById('login-password').value = '';
+        }
+
+        // Enter tuşu ile mesaj gönderme
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

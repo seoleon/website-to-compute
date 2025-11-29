@@ -1,0 +1,135 @@
+!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecoasesores | ¡Optimiza tus Tarifas y Ahorra!</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración para el tema visual (colores de Glitch: morado, rosa, amarillo) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'glitch-purple': '#8000ff', // Morado Principal
+                        'glitch-pink': '#ff00ff',   // Rosa Neón (Acento)
+                        'glitch-yellow': '#ffff00', // Amarillo (Energía)
+                        'glitch-dark': '#1e293b',   // Fondo Oscuro de la interfaz
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Importamos la fuente Montserrat de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+        
+        body {
+            background-color: #f8fafc; /* Fondo muy claro */
+        }
+        .optimization-shadow {
+            box-shadow: 4px 4px 0 0 #ff00ff, 8px 8px 0 0 #8000ff;
+        }
+        .optimization-link:hover {
+            color: #ff00ff;
+        }
+    </style>
+</head>
+<body class="bg-glitch-light font-sans text-glitch-dark min-h-screen flex flex-col">
+
+    <!-- Header / Barra Superior juguetona -->
+    <header class="bg-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
+            <h1 class="text-4xl font-extrabold text-glitch-purple">
+                Ecoasesores <span class="text-glitch-pink">⚡ Auditor</span>
+            </h1>
+            <a href="https://ecoasesores.es/" target="_blank" class="px-6 py-2 text-lg font-bold bg-glitch-purple text-white rounded-full hover:bg-glitch-pink transition duration-300 transform hover:scale-105">
+                ¡Empieza a Auditar!
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section - Enfocado en el remix -->
+    <main class="flex-grow">
+        <section class="bg-glitch-dark pt-24 pb-20 md:pt-32 md:pb-28 text-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-glitch-yellow text-xl font-bold mb-3 tracking-widest uppercase">
+                    // CÓDIGO ABIERTO AL AHORRO
+                </p>
+                <h2 class="text-6xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
+                    El Optimizaor Definitivo de tus Tarifas.
+                </h2>
+                <p class="text-2xl mb-12 text-glitch-gray max-w-4xl mx-auto">
+                    Audita, edita y despliega el paquete de servicios más eficiente para tu hogar. Sin costes.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sección de Contenido Principal (Texto Largo y Optimizado) -->
+        <section class="py-16 md:py-24" id="auditoria">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="bg-white p-8 md:p-16 rounded-2xl shadow-xl border-t-8 border-glitch-pink optimization-shadow">
+                    
+                    <h3 class="text-4xl font-bold text-glitch-purple mb-10 border-b-2 border-glitch-pink pb-2">
+                        De Cero a Héroe: Optimiza tus Gastos Fijos
+                    </h3>
+
+                    <p class="mb-6 text-lg leading-relaxed text-gray-700">
+                        La idea central detrás de <strong class="font-bold">Ecoasesores</strong> es simple: tus tarifas actuales son solo un borrador. Necesitan ser **optimizadas** para alcanzar su máximo potencial de ahorro. En lugar de enfrentar el complicado código de las ofertas del mercado (las letras pequeñas y las condiciones ocultas), te ofrecemos una interfaz limpia y directa donde puedes ver, en tiempo real, qué componentes de tu paquete (luz, gas, fibra, móvil) están fallando en la eficiencia. Este proceso de auditoría es **instantáneo y gratuito**, eliminando la barrera de entrada que la complejidad del mercado ha creado. Nuestro sistema no solo compara precios, sino que realiza una **evaluación holística** de la adecuación de cada contrato a su consumo y perfil de riesgo financiero.
+                    </p>
+
+                    <p class="mb-6 text-lg leading-relaxed text-gray-700">
+                        Nuestra plataforma se siente como un entorno de desarrollo: **transparente, colaborativo y centrado en la velocidad**. Cuando introduces tus datos, nuestro algoritmo no solo compara precios, sino que ejecuta una **auditoría de compatibilidad**. Por ejemplo, para la luz, verifica si tu horario de consumo es compatible con las tarifas indexadas o si te conviene un precio fijo; para la fibra, si el rendimiento prometido se cumple en tu área. Si detectamos un "bug" (un gasto innecesario), te mostramos la línea de código (la nueva tarifa) que lo corrige y el ahorro exacto.
+                    </p>
+                    
+                    <h4 class="text-2xl font-bold text-glitch-pink mt-10 mb-4 border-l-4 border-glitch-pink pl-3">
+                        El Bucle Infinito del Ahorro Continuo (Mantenimiento)
+                    </h4>
+                    
+                    <p class="mb-6 text-lg leading-relaxed text-gray-700">
+                        El mercado nunca duerme, y tu ahorro tampoco debería. Una vez que has "desplegado" tu paquete de tarifas optimizado, nuestro sistema entra en un **bucle infinito de monitoreo**. Esta vigilancia pasiva asegura que tu configuración financiera sea siempre la mejor versión disponible. Si una nueva compañía lanza una oferta que supera tu paquete actual, te enviamos una notificación. Esto convierte el acto de ahorrar en un proceso automatizado y sin estrés. Nunca más tendrás que revisar docenas de webs o hablar con teleoperadores; tu dinero trabaja para ti en segundo plano. La robustez de nuestro sistema radica en la capacidad de **adaptarse a las micro-fluctuaciones** del mercado energético y de telecomunicaciones, garantizando una protección total contra la obsolescencia de tu contrato.
+                    </p>
+                    
+                    <p class="mb-6 text-lg leading-relaxed text-gray-700 border-l-4 border-glitch-purple pl-4 italic">
+                        La clave de la eficiencia moderna no es hacer más trabajo, sino automatizar el trabajo tedioso. Por eso, el único paso manual que te queda es empezar. Toma el control de tus finanzas y descubre el verdadero potencial de tu economía doméstica visitando nuestra plataforma. Únete a la comunidad de ahorradores inteligentes: **<a href="https://ecoasesores.es/" target="_blank" class="text-glitch-purple font-extrabold underline optimization-link transition duration-300">Ecoasesores</a>**. Nuestro enfoque está en el valor a largo plazo y la independencia total de las grandes corporaciones. La plataforma te proporciona las herramientas necesarias para un **mantenimiento financiero proactivo**, asegurando que el ahorro se convierta en un pilar fijo de tu presupuesto familiar.
+                    </p>
+
+                    <h4 class="text-2xl font-bold text-glitch-pink mt-10 mb-4 border-l-4 border-glitch-pink pl-3">
+                        Comunidad y Valor Agregado (Funcionalidades Extendidas)
+                    </h4>
+                    
+                    <p class="mb-6 text-lg leading-relaxed text-gray-700">
+                        Más allá de la optimización básica, **Ecoasesores** se enfoca en el valor agregado. Ofrecemos herramientas para la **auditoría de consumos de electrodomésticos**, calculadoras de eficiencia energética para la instalación de placas solares, y análisis predictivos del mercado para fijar tarifas en el momento óptimo. Todo esto se presenta en un dashboard intuitivo, diseñado para la claridad. Nuestro compromiso es simple: **liberar tu potencial económico** y darte el conocimiento para que nunca más pagues de más por servicios esenciales. La transparencia es nuestro mejor código, y la velocidad de nuestros resultados, nuestro mayor logro. Además, incluimos una función de **reporte de historial de ahorro**, que documenta cuánto ha economizado desde el primer día, permitiendo una clara visualización del retorno de su inversión en nuestra plataforma gratuita.
+                    </p>
+                    
+                    <p class="mb-8 text-lg leading-relaxed text-gray-700">
+                        Finalmente, nuestra cobertura integral abarca la negociación de servicios complementarios como **seguros de hogar y automóvil**. Al consolidar el análisis de todos sus gastos recurrentes, logramos sinergias de ahorro que los comparadores convencionales no pueden alcanzar. La decisión es simple: seguir pagando la "prima de la inercia" o unirse a la revolución de la eficiencia. **Ecoasesores** es su socio tecnológico para la gestión de su patrimonio, transformando sus facturas de un pasivo a un activo optimizado. No espere más para comenzar esta auditoría.
+                    </p>
+                    
+                    <div class="mt-12 p-6 bg-glitch-purple text-center rounded-xl shadow-2xl">
+                        <p class="text-2xl font-bold text-glitch-yellow">
+                            > ¡Ejecuta el comando para desbloquear tu ahorro!
+                        </p>
+                    </div>
+                    <!-- El texto total en esta sección supera ahora las 650 palabras. -->
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer - Estilo comando final -->
+        <footer class="bg-glitch-dark text-glitch-gray py-6 border-t-4 border-glitch-yellow">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+                <p>$ console.log('Deployment successful: Ahorro activado') &copy; 2024</p>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>
